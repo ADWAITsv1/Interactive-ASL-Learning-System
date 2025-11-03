@@ -5,21 +5,21 @@ Learn sign language letters (A–Z), then get quizzed — with live feedback thr
 
 ---
 
-## 🎥 Demo
+## 🎬 Demo
 
+**Watch full demo (Google Drive)**  
+<a href="https://drive.google.com/file/d/1WYSPlCFle2Q8LRD1QXZ60J2EaWAjOyiW/view?usp=sharing" target="_blank">
+  Click here to view full 2m25s demonstration
+</a>
+
+**Play demo instantly (inline preview)**  
 <p align="center">
-  <b>🔹 Watch Full Demo (Google Drive)</b><br>
-  <a href="https://drive.google.com/file/d/1WYSPlCFle2Q8LRD1QXZ60J2EaWAjOyiW/view?usp=sharing" target="_blank">
-    ▶️ Click here to view full 2m25s demonstration
-  </a>
+  <a href="assets/demo.mp4">
+    <img src="assets/demo.gif" alt="Interactive ASL demo preview (click to play MP4)" width="720">
+  </a><br>
+  <sub>Click the preview to open the MP4 in GitHub’s viewer.</sub>
 </p>
 
-<p align="center">
-  <b>🔹 Play Demo Instantly (Compressed Preview)</b><br>
-  <video src="assets/demo.mp4" width="720" controls autoplay muted playsinline loop></video>
-</p>
-
----
 
 ## 📁 Project Structure
 
