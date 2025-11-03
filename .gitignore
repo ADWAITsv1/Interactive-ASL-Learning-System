@@ -1,0 +1,28 @@
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+.env
+*.log
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Build / coverage
+build/
+dist/
+.coverage
+htmlcov/
+
+# Media (keep mp4 out of Git unless you use LFS)
+*.mp4
