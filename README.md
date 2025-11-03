@@ -1,97 +1,120 @@
-# Interactive ASL Learning System
+# ✋ Interactive ASL Learning System (A–Z)
 
-Real-time, webcam-based **American Sign Language** learning + quiz app, with optional Arduino feedback.
-- **final_assignment.py** – learn mode (watches the tutorial video timestamps, matches your hand).
-- **quiz.py** – quiz mode (words built from A–Z using your configured letters).
-- **fft_send.py** – (optional) tone/FFT helper for the Arduino message path.
-
-## ✨ Features
-- MediaPipe Hands tracking (no special gloves/sensors)
-- Reference-timestamp matching against a tutorial video (A–Z)
-- Quiz words configurable in code
-- Optional Arduino serial output for hardware feedback (LCD/LED, buzzer, etc.)
-- Simple `.env` support for local settings
-
-## 📁 Structure
-Interactive-ASL-Learning-System/
-├── asl_tutorial.mp4 # (ignored by Git by default)
-├── final_assignment.py # Learn mode
-├── quiz.py # Quiz mode
-├── fft_send.py # Optional FFT/tone utility
-├── requirements.txt
-├── .env # Local secrets/ports (ignored)
-├── .gitignore
-└── venv/ # Local virtual env (ignored)
-
-
-## 🧪 Quick start (macOS)
-```bash
-# 0) In project root
-python3 -m venv venv
-source venv/bin/activate
-
-# 1) Install deps
-pip install -r requirements.txt
-
-# 2) Create .env
-cp .env.example .env   # if you create the example file below; otherwise create .env manually
-
-.env template
-# Serial port to your Arduino (ls /dev/cu.* to find it)
-SERIAL_PORT=/dev/cu.usbmodem0000000000001
-BAUD_RATE=9600
-
-# (Optional) Mic device index for FFT path
-MIC_DEVICE_INDEX=0
-
-🔧 Configure
-
-Inside the scripts, you’ll see configurable values near the top:
-
-SERIAL_PORT / BAUD_RATE – or override via .env
-
-VIDEO_PATH – path to asl_tutorial.mp4
-
-REFERENCE_SIGNS_CONFIG – timestamps for A–Z (already filled based on your video)
-
-QUIZ_WORDS – words to quiz (letters must exist in REFERENCE_SIGNS_CONFIG)
-
-▶️ Run
-
-Learn mode
-
-python final_assignment.py
-
-
-Quiz mode
-
-python quiz.py
-
-
-Optional FFT → Arduino
-
-python fft_send.py
-
-🧰 Troubleshooting
-
-PyAudio build error on mac: brew install portaudio && pip install pyaudio
-
-No camera permissions: allow Terminal/VS Code to access the camera in System Settings → Privacy & Security.
-
-Serial not found: check ls /dev/cu.* and update SERIAL_PORT.
-
-📄 License
-
-MIT (add a LICENSE file if you want open-source)
-
+Real-time **ASL learning and quiz system** using **MediaPipe Hands + Arduino**.  
+Learn sign language letters (A–Z), then get quizzed — with live feedback via LEDs or LCD on Arduino!
 
 ---
 
-# 5) (Optional) `.env.example`
-Create this helpful template so others know what to set:
+## 🎥 Demo
 
-```ini
-# Copy to .env and edit
+**Full demo (Google Drive)**  
+▶️ [Watch full performance (2 min 25 s)](https://drive.google.com/file/d/1WYSPlCFle2Q8LRD1QXZ60J2EaWAjOyiW/view?usp=sharing)
+
+**Compressed preview (in this repo)**  
+<video src="assets/demo.mp4" controls playsinline muted width="720"></video>
+
+---
+
+## 📁 Structure
+
+Interactive-ASL-Learning-System/
+├─ final_assignment.py # Learn mode (guided ASL video tracking)
+├─ quiz.py # Quiz mode (word quiz using hand detection)
+├─ fft_send.py # Optional: Arduino tone/LED signal utility
+├─ requirements.txt
+├─ assets/
+│ ├─ demo.mp4 # Compressed preview (~3.5 MB)
+│ ├─ Screen Recording 2025-07-26.mov (ignored, 1 GB original)
+│ └─ screenshots/ # (Optional) snapshots
+├─ .env # Local serial/mic config (not tracked)
+├─ .gitignore
+└─ venv/ # Local virtual environment (ignored)
+
+yaml
+Copy code
+
+---
+
+## ⚙️ Installation (macOS)
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+Requirements
+Copy code
+opencv-python
+mediapipe
+numpy
+pyserial
+python-dotenv
+pyaudio
+If pyaudio fails on macOS:
+brew install portaudio && pip install pyaudio
+
+🔐 .env Configuration
+Create a file named .env in the project root:
+
+ini
+Copy code
+# Serial port for Arduino (find yours with ls /dev/cu.*)
 SERIAL_PORT=/dev/cu.usbmodem201912341
 BAUD_RATE=9600
+
+# Optional mic index for FFT-based sound detection
 MIC_DEVICE_INDEX=0
+🧠 Key Parameters
+Inside final_assignment.py and quiz.py, you can adjust:
+
+Parameter	Description
+VIDEO_PATH	Path to your ASL tutorial video
+REFERENCE_SIGNS_CONFIG	A–Z timestamps for reference matching
+QUIZ_WORDS	List of words to quiz (letters must exist above)
+MATCH_THRESHOLD	Euclidean distance for match tolerance
+QUIZ_DURATION_SEC	Time allowed per sign
+QUIZ_INTERVAL_SEC	Delay between quizzes
+
+▶️ Run the System
+1️⃣ Learn Mode
+
+bash
+Copy code
+python final_assignment.py
+2️⃣ Quiz Mode
+
+bash
+Copy code
+python quiz.py
+3️⃣ Optional Arduino Signal Mode
+
+bash
+Copy code
+python fft_send.py
+🧩 Features
+✅ MediaPipe Hands tracking (no gloves/sensors)
+✅ Real-time hand landmark comparison against tutorial timestamps
+✅ Adjustable quiz timing + difficulty
+✅ Optional Arduino serial output for LEDs/LCD feedback
+✅ Modular .env configuration for serial/mic settings
+
+🧪 Troubleshooting
+No camera access → System Settings → Privacy → Camera → Allow for Terminal or VS Code
+
+Serial not found → ls /dev/cu.* and update .env
+
+PyAudio error → brew install portaudio && pip install pyaudio
+
+MediaPipe on M-series Macs → try pip install mediapipe==0.10.11
+
+📜 License
+MIT License — freely usable for learning and educational purposes.
+
+💡 Notes
+The full 1 GB .mov file is stored externally to save repository space.
+If you need to reproduce the conversion command:
+
+bash
+Copy code
+ffmpeg -i "Screen Recording 2025-07-26 at 17.29.39.mov" \
+  -vf "scale=-2:720" -c:v libx264 -preset veryfast -crf 28 -an assets/demo.mp4

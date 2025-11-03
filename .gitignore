@@ -1,28 +1,23 @@
-# OS / editor
-.DS_Store
-.vscode/
-.idea/
-
 # Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.egg-info/
-.pytest_cache/
-.venv/
-venv/
-.env
 *.log
 
-# Notebooks
-.ipynb_checkpoints/
+# Virtual env
+.venv/
+venv/
 
-# Build / coverage
-build/
-dist/
-.coverage
-htmlcov/
+# Local config / secrets
+.env
 
-# Media (keep mp4 out of Git unless you use LFS)
+# OS / editor
+.DS_Store
+.vscode/
+
+# Large binaries you don't want in git (keep the demo in assets/ if small)
+*.mov
+*.zip
 *.mp4
+!assets/demo.mp4   # allow the small showcase video
