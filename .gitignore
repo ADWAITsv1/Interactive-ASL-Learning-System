@@ -21,3 +21,4 @@ venv/
 *.zip
 *.mp4
 !assets/demo.mp4   # allow the small showcase video
+!assets/*.mp4
